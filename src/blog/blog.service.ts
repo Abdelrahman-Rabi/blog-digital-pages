@@ -9,9 +9,9 @@ export class BlogService {
   constructor(@InjectModel('Post') private readonly postModel: Model<Post>) { }
     
   async addPost(createPostDTO: CreatePostDTO): Promise<Post> {
-    const newPost = await this.postModel(createPostDTO);
-    return newPost.save();
-  }  
+    const newPost = await this.postModel.create(createPostDTO);
+    return newPost;
+  }
     
   async getPost(postID): Promise<Post> {
     const post = await this.postModel
@@ -30,10 +30,9 @@ export class BlogService {
       .findByIdAndUpdate(postID, createPostDTO, { new: true });
     return editedPost;
   }
-  
-  async deletePost(postID): Promise<any> {
-    const deletedPost = await this.postModel
-      .findByIdAndRemove(postID);
+
+  async deletePost(postID: string): Promise<Post | null> {
+    const deletedPost = await this.postModel.findByIdAndDelete(postID).exec();
     return deletedPost;
   }
 }
