@@ -1,24 +1,37 @@
 <template>
-  <q-header elevated>
+  <q-header elevated class="bg-primary text-white">
     <q-toolbar>
-      <q-toolbar-title>
-        Blog Application
+      <q-toolbar-title class="row items-center">
+        <q-avatar class="q-mr-sm">
+          <img src="~assets/logo.png" alt="Logo">
+        </q-avatar>
+        <span class="text-weight-bold">Digital Pages Blog</span>
       </q-toolbar-title>
-
-      <!-- Login/Logout buttons based on authentication status -->
-      <q-btn flat v-if="!isAuthenticated" @click="login">Login</q-btn>
-      <q-btn flat v-if="isAuthenticated" @click="logout">Logout</q-btn>
+      <q-space />
+      <q-btn flat @click="toggleAuth">
+        {{ isAuthenticated ? 'Logout' : 'Login' }}
+      </q-btn>
     </q-toolbar>
   </q-header>
 </template>
 
-<script setup>
-import { inject } from 'vue';
+<script lang="ts">
+import { defineComponent } from 'vue';
+import { useAuth } from 'src/composables/useAuth';
 
-// Injecting auth data from the provider
-const { isAuthenticated, login, logout } = inject('auth');
+export default defineComponent({
+  name: 'NavBar',
+  setup() {
+    const { isAuthenticated, toggleAuth } = useAuth();
+
+    return {
+      isAuthenticated,
+      toggleAuth
+    };
+  }
+});
 </script>
 
 <style scoped>
-/* Add any necessary styles */
+/* Add any component-specific styles here */
 </style>
