@@ -1,33 +1,17 @@
 <template>
-  <q-layout>
-    <Navbar />
+  <div id="q-app">
     <router-view />
-  </q-layout>
+  </div>
 </template>
 
-<script setup>
-import { provide, ref } from 'vue';
-import Navbar from 'components/Navbar.vue';
+<script lang="ts">
+import { defineComponent } from 'vue'
 
-const isAuthenticated = ref(false);
-const posts = ref([
-  { id: 1, title: 'First Post', body: 'This is the first post.' },
-  { id: 2, title: 'Second Post', body: 'This is the second post.' }
-]);
-
-// Provide authentication data
-provide('auth', {
-  isAuthenticated,
-  login: () => { isAuthenticated.value = true },
-  logout: () => { isAuthenticated.value = false }
-});
-
-// Provide blog posts data
-provide('blogData', {
-  posts
-});
+export default defineComponent({
+  name: 'App'
+})
 </script>
 
-<style scoped>
-/* Add any necessary styles */
+<style>
+/* You can add global styles here */
 </style>

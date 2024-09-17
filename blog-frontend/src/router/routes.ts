@@ -1,12 +1,13 @@
-import { RouteRecordRaw } from 'vue-router';
-import HomePage from 'pages/HomePage.vue';
-
-const routes: RouteRecordRaw[] = [
+// src/router/routes.js
+const routes = [
   {
     path: '/',
-    component: HomePage
+    component: () => import('layouts/MainLayout.vue'), // MainLayout wraps all pages
+    children: [
+      { path: '', component: () => import('pages/HomePage.vue') }  // HomePage should be here
+    ]
   },
-  // other routes...
-];
+  // Other routes...
+]
 
 export default routes;
