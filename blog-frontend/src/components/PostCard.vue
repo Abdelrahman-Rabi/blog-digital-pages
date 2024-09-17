@@ -41,7 +41,7 @@ export default defineComponent({
     const { isAuthenticated } = useAuth();
 
     const showMore = () => {
-      router.push(`/post/${props.post.id}`);
+      router.push({ name: 'singlePost', params: { id: props.post.id.toString() } });
     };
 
     const editPost = () => {
