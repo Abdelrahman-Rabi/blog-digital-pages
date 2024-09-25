@@ -12,6 +12,8 @@ import App from './App.vue'
 // Assumes you have a router.ts file in the src/router directory
 import router from './router'
 
+import { useAuth0 } from './composables/useAuth0'
+
 const myApp = createApp(App)
 
 myApp.use(Quasar, {
@@ -31,6 +33,13 @@ myApp.use(Quasar, {
 })
 
 myApp.use(router)
+
+const { provideAuth0 } = useAuth0();
+
+provideAuth0({
+  domain: process.env.VUE_APP_AUTH0_DOMAIN as string,
+  client_id: process.env.VUE_APP_AUTH0_CLIENT_ID as string,
+});
 
 // Assumes you have a div with id="app" in your index.html
 myApp.mount('#app')
